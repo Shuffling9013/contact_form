@@ -1,0 +1,18 @@
+import css from "@eslint/css";
+import js from "@eslint/js";
+import { defineConfig } from "eslint/config";
+import ts from "typescript-eslint";
+
+export default defineConfig(
+  {
+    files: ["**/*.css"],
+    language: "css/css",
+    plugins: { css },
+    extends: ["css/recommended"],
+  },
+  {
+    files: ["**/*.{t,j}s"],
+    plugins: { js, ts },
+    extends: ["js/recommended", "ts/strict", "ts/stylistic"],
+  },
+);

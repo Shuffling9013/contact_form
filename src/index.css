@@ -1,0 +1,30 @@
+@import "./reset.css";
+
+@font-face {
+  font-family: Karla;
+  font-display: swap;
+  font-weight: 400 700;
+  src: url("../assets/fonts/Karla-VariableFont_wght.ttf") format("truetype");
+}
+
+@layer base {
+  :root {
+    --green-200: hsl(148, 38%, 91%);
+    --green-600: hsl(169, 82%, 27%);
+    --red: hsl(0, 66%, 54%);
+    --white: hsl(0, 0%, 100%);
+    --grey-500: hsl(186, 15%, 59%);
+    --grey-900: hsl(187, 24%, 22%);
+
+    --font-size: clamp(16px, 16px + 4 * (100vw - 375px) / (1440 - 375), 20px);
+    --line-height: 1.5;
+    --font-family: Karla, Arial, Helvetica, sans-serif;
+  }
+
+  body {
+    font-weight: 400;
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    font-family: var(--font-family);
+  }
+}
