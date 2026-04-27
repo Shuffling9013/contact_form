@@ -14,6 +14,61 @@
     <script type="module" src="./src/index.ts"></script>
   </head>
   <body>
-    <main>test</main>
+    <main>
+      <form aria-labelledby="form-heading">
+        <h1 id="form-heading">Contact Us</h1>
+
+        <div>
+          <label for="first-name"> First Name * </label>
+          <input id="first-name" type="text" name="first-name" required />
+        </div>
+
+        <div>
+          <label for="last-name"> Last Name * </label>
+          <input id="last-name" type="text" name="last-name" required />
+        </div>
+
+        <div>
+          <label for="email"> Email Address * </label>
+          <input id="email" type="email" name="email" required />
+        </div>
+
+        <fieldset>
+          <legend>Query Type *</legend>
+          <label>
+            <input type="radio" name="query-type" value="general" required />
+            General Enquiry
+          </label>
+          <label>
+            <input type="radio" name="query-type" value="support" />
+            Support Request
+          </label>
+        </fieldset>
+
+        <div>
+          <label for="message"> Message * </label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+
+        <div>
+          <input
+            id="agree-contact"
+            type="checkbox"
+            name="agree-contact"
+            required
+          />
+          <label for="agree-contact">
+            I consent to being contacted by the team *
+          </label>
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <section aria-labelledby="toast-heading" hidden>
+        <h2 id="toast-heading">Message Sent!</h2>
+        <p>Thanks for completing the form. We'll be in touch soon!</p>
+      </section>
+    </main>
   </body>
 </html>
