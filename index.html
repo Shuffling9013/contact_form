@@ -20,20 +20,56 @@
 
         <div>
           <label for="first-name"> First Name * </label>
-          <input id="first-name" type="text" name="first-name" required />
+          <input
+            id="first-name"
+            type="text"
+            name="first-name"
+            required
+            aria-errormessage="first-name-error"
+          />
+          <span
+            id="first-name-error"
+            role="alert"
+            aria-live="assertive"
+            aria-hidden="true"
+          />
         </div>
 
         <div>
           <label for="last-name"> Last Name * </label>
-          <input id="last-name" type="text" name="last-name" required />
+          <input
+            id="last-name"
+            type="text"
+            name="last-name"
+            required
+            aria-errormessage="last-name-error"
+          />
+          <span
+            id="last-name-error"
+            role="alert"
+            aria-live="assertive"
+            aria-hidden="true"
+          />
         </div>
 
         <div>
           <label for="email"> Email Address * </label>
-          <input id="email" type="email" name="email" required />
+          <input
+            id="email"
+            type="email"
+            name="email"
+            required
+            aria-errormessage="email-error"
+          />
+          <span
+            id="email-error"
+            role="alert"
+            aria-live="assertive"
+            aria-hidden="true"
+          />
         </div>
 
-        <fieldset>
+        <fieldset aria-errormessage="query-type-error">
           <legend>Query Type *</legend>
           <label>
             <input type="radio" name="query-type" value="general" required />
@@ -43,11 +79,28 @@
             <input type="radio" name="query-type" value="support" />
             Support Request
           </label>
+          <span
+            id="query-type-error"
+            role="alert"
+            aria-live="assertive"
+            aria-hidden="true"
+          />
         </fieldset>
 
         <div>
           <label for="message"> Message * </label>
-          <textarea id="message" name="message" required></textarea>
+          <textarea
+            id="message"
+            name="message"
+            required
+            aria-errormessage="message-error"
+          ></textarea>
+          <span
+            id="message-error"
+            role="alert"
+            aria-live="assertive"
+            aria-hidden="true"
+          />
         </div>
 
         <div>
@@ -56,10 +109,17 @@
             type="checkbox"
             name="agree-contact"
             required
+            aria-errormessage="agree-contact-error"
           />
           <label for="agree-contact">
             I consent to being contacted by the team *
           </label>
+          <span
+            id="agree-contact-error"
+            role="alert"
+            aria-live="assertive"
+            aria-hidden="true"
+          />
         </div>
 
         <button type="submit">Submit</button>
