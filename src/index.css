@@ -19,6 +19,9 @@
     --font-size: clamp(16px, 16px + 4 * (100vw - 375px) / (1440 - 375), 20px);
     --line-height: 1.5;
     --font-family: Karla, Arial, Helvetica, sans-serif;
+
+    --border-green: 0.1em solid var(--grey-500);
+    --border-red: 0.1em solid var(--red);
   }
 
   body {
@@ -26,5 +29,64 @@
     font-size: var(--font-size);
     line-height: var(--line-height);
     font-family: var(--font-family);
+    background-color: var(--green-200);
+    color: var(--grey-900);
+  }
+
+  main {
+    display: flex;
+    padding-inline: 1em;
+    block-size: 100%;
+  }
+
+  form {
+    display: grid;
+    gap: 1em;
+    margin: auto;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: var(--white);
+
+    :is(input[type="text"], input[type="email"], textarea) {
+      margin-block: 0.25em;
+      padding: 0.5em 1em;
+      border-radius: 0.25em;
+      border: var(--border-green);
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 2em;
+    }
+
+    textarea {
+      block-size: 10lh;
+    }
+
+    label:has(input[type="checkbox"]) {
+      display: flex;
+      gap: 1em;
+    }
+
+    button[type="submit"] {
+      padding: 0.5em 1em;
+      border-radius: 0.25em;
+      border: none;
+      background-color: var(--green-600);
+      color: var(--white);
+    }
+  }
+
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    border: none;
+
+    label {
+      margin-block: 0.25em;
+      padding: 0.5em 1em;
+      border-radius: 0.25em;
+      border: var(--border-green);
+    }
   }
 }

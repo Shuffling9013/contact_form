@@ -16,7 +16,14 @@
     font: inherit;
   }
 
-  html {
+  html,
+  body {
     block-size: 100svh;
+  }
+
+  input:not([type="radio"], [type="checkbox"]),
+  textarea {
+    display: block;
+    inline-size: 100%;
   }
 }
