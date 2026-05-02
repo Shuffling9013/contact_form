@@ -72,6 +72,10 @@
     &:focus {
       border: var(--border-green);
     }
+
+    &:hover {
+      border: var(--border-green);
+    }
   }
 
   label:has(input) {
@@ -90,6 +94,10 @@
 
   label:has(input[type="radio"]:checked) {
     background-color: var(--green-200);
+  }
+
+  input[type="checkbox"]:checked:focus {
+    outline: var(--border-grey);
   }
 
   input:is([type="radio"], [type="checkbox"]) {
@@ -136,7 +144,17 @@
     padding: 0.5em 1em;
     border-radius: 0.25em;
     border: none;
+    outline: none;
+    cursor: pointer;
     background-color: var(--green-600);
     color: var(--white);
+
+    &:hover {
+      background-color: hsl(from var(--green-600) h s calc(0.5 * l));
+    }
+
+    &:focus {
+      outline: var(--border-grey);
+    }
   }
 }
