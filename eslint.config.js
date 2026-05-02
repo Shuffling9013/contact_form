@@ -9,6 +9,9 @@ export default defineConfig(
     language: "css/css",
     plugins: { css },
     extends: ["css/recommended"],
+    rules: {
+      "css/use-baseline": ["warn", { available: "newly" }],
+    },
   },
   {
     files: ["**/*.{t,j}s"],
