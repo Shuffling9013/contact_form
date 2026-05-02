@@ -42,17 +42,42 @@
 
   form {
     display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 1em;
+    flex-grow: 1;
     margin: auto;
     padding: 1em;
+    max-inline-size: 36em;
+    container-type: inline-size;
     border-radius: 1em;
     background-color: var(--white);
+
+    & > * {
+      grid-column: span 2;
+    }
+
+    :is(div:nth-of-type(1), div:nth-of-type(2)) {
+      @container (width > 24em) {
+        grid-column: span 1;
+      }
+    }
   }
 
   fieldset {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    column-gap: 1em;
     border: none;
+
+    & > * {
+      flex-grow: 1;
+    }
+
+    @container (width > 24em) {
+      flex-direction: row;
+    }
   }
 
   :is(
@@ -128,6 +153,7 @@
   }
 
   [role="alert"] {
+    inline-size: 100%;
     color: var(--red);
   }
 
