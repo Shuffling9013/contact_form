@@ -185,7 +185,7 @@
   }
 
   textarea {
-    block-size: 10lh;
+    block-size: calc(10lh - 5vw);
   }
 
   button[type="submit"] {

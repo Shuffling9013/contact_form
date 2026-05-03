@@ -103,6 +103,7 @@ app.form.addEventListener("submit", (e) => {
   renderErrorMessages(errors);
 
   if (isValidForm) {
+    app.form.reset();
     document.startViewTransition(() => renderToast(true));
     setTimeout(
       () => document.startViewTransition(() => renderToast(false)),
