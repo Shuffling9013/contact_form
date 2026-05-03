@@ -1,4 +1,4 @@
-type FieldName = Exclude<keyof typeof app, "form">;
+type FieldName = Exclude<keyof typeof app, "form" | "toast">;
 
 function query<T extends typeof HTMLElement>(q: string, Cls: T) {
   const ele = document.querySelector(q);
@@ -9,40 +9,66 @@ function query<T extends typeof HTMLElement>(q: string, Cls: T) {
 }
 
 function validate(obj: Record<string, unknown>) {
-  const errors: Partial<Record<FieldName, string>> = {};
-  const requiredFields = {
-    "first-name": "This field is required",
-    "last-name": "This field is required",
-    message: "This field is required",
-    email: "This field is required",
-    "query-type": "Please select a query type",
-    "agree-contact": "To submit this form, please consent to being contacted",
+  const errors = {
+    "first-name": "",
+    "last-name": "",
+    message: "",
+    email: "",
+    "query-type": "",
+    "agree-contact": "",
   };
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-  const isString = (val: unknown): val is string =>
+  const isValidText = (val: unknown): val is string =>
     "string" === typeof val && val.length > 0;
-  const isTrue = (val: unknown): val is string =>
-    "boolean" === typeof val && val;
 
-  for (const key of Object.keys(requiredFields) as FieldName[]) {
-    if (!isString(obj[key]) && !isTrue(obj[key])) {
-      errors[key] = requiredFields[key];
+  for (const key of Object.keys(errors) as FieldName[]) {
+    switch (key) {
+      case "query-type":
+        if (!isValidText(obj[key])) {
+          errors[key] = "Please select a query type";
+        }
+        break;
+
+      case "agree-contact":
+        if ("on" !== obj[key]) {
+          errors[key] =
+            "To submit this form, please consent to being contacted";
+        }
+        break;
+
+      case "email":
+        if (isValidText(obj[key])) {
+          if (!emailPattern.test(obj[key])) {
+            errors["email"] = "Please enter a valid email address";
+          }
+        } else {
+          errors[key] = "This field is required";
+        }
+        break;
+
+      default:
+        if (!isValidText(obj[key])) {
+          errors[key] = "This field is required";
+        }
+        break;
     }
-  }
-
-  if (isString(obj["email"]) && !emailPattern.test(obj["email"])) {
-    errors["email"] = "Please enter a valid email address";
   }
 
   return errors;
 }
 
-function renderError(key: FieldName, value: string) {
-  for (const ele of app[key].ariaErrorMessageElements ?? []) {
-    ele.ariaHidden = "" === value ? "true" : "false";
-    ele.textContent = value;
+function renderErrorMessages(errors: Partial<Record<FieldName, string>>) {
+  for (const key of Object.keys(errors) as FieldName[]) {
+    for (const ele of app[key].ariaErrorMessageElements ?? []) {
+      ele.ariaHidden = errors[key] ? "false" : "true";
+      ele.textContent = errors[key] ?? "";
+    }
   }
+}
+
+function renderToast(on: boolean) {
+  app.toast.hidden = !on;
+  app.toast.ariaHidden = String(!on);
 }
 
 const app = {
@@ -53,6 +79,7 @@ const app = {
   email: query(`[name="email"]`, HTMLInputElement),
   "query-type": query(`fieldset:has([name="query-type"])`, HTMLFieldSetElement),
   "agree-contact": query(`[name="agree-contact"]`, HTMLInputElement),
+  toast: query(`[aria-labelledby="toast-heading"]`, HTMLElement),
 };
 
 app.form.noValidate = true;
@@ -62,7 +89,7 @@ for (const key of ["first-name", "last-name", "email", "message"] as const) {
     const data = new FormData(app.form);
     const errors = validate(Object.fromEntries(data));
 
-    renderError(key, errors[key] ?? "");
+    renderErrorMessages({ [key]: errors[key] });
   });
 }
 
@@ -71,8 +98,15 @@ app.form.addEventListener("submit", (e) => {
 
   const data = new FormData(app.form);
   const errors = validate(Object.fromEntries(data));
+  const isValidForm = Object.values(errors).every((val) => val === "");
 
-  for (const key of Object.keys(errors) as FieldName[]) {
-    renderError(key, errors[key] ?? "");
+  renderErrorMessages(errors);
+
+  if (isValidForm) {
+    document.startViewTransition(() => renderToast(true));
+    setTimeout(
+      () => document.startViewTransition(() => renderToast(false)),
+      3000,
+    );
   }
 });
