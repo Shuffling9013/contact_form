@@ -63,6 +63,28 @@
     }
   }
 
+  [aria-labelledby="toast-heading"] {
+    padding: 1em;
+    border-radius: 0.5em;
+    position: absolute;
+    top: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--grey-900);
+    color: var(--white);
+
+    #toast-heading {
+      display: flex;
+      gap: 0.5em;
+      margin-block-end: 0.5em;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 0.75em;
+    }
+  }
+
   fieldset {
     display: flex;
     flex-direction: column;
