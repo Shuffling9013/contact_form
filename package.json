@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "bun --hot index.html",
-    "fmt": "prettier . -w && eslint ."
+    "fmt": "prettier . -w && eslint .",
+    "make": "rm -r docs && bun build --production --outdir=docs index.html"
   },
   "devDependencies": {
     "@eslint/css": "^1.1.0",

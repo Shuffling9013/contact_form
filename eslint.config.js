@@ -1,9 +1,10 @@
 import css from "@eslint/css";
 import js from "@eslint/js";
-import { defineConfig } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 import ts from "typescript-eslint";
 
 export default defineConfig(
+  globalIgnores(["docs/"]),
   {
     files: ["**/*.css"],
     language: "css/css",
