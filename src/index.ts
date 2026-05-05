@@ -1,4 +1,4 @@
-type FieldName = Exclude<keyof typeof app, "form" | "toast">;
+type FieldName = Exclude<keyof typeof app, "form" | "notifications" | "toast">;
 
 function query<T extends typeof HTMLElement>(q: string, Cls: T) {
   const ele = document.querySelector(q);
@@ -59,27 +59,35 @@ function validate(obj: Record<string, unknown>) {
 
 function renderErrorMessages(errors: Partial<Record<FieldName, string>>) {
   for (const key of Object.keys(errors) as FieldName[]) {
+    app[key].ariaInvalid = errors[key] ? "true" : "false";
     for (const ele of app[key].ariaErrorMessageElements ?? []) {
-      ele.ariaHidden = errors[key] ? "false" : "true";
       ele.textContent = errors[key] ?? "";
     }
   }
 }
 
-function renderToast(on: boolean) {
-  app.toast.hidden = !on;
-  app.toast.ariaHidden = String(!on);
+function renderToast(ms = 3000) {
+  const toast = document.importNode(app.toast.content, true);
+
+  document.startViewTransition(() => {
+    app.notifications.append(toast);
+  });
+
+  setTimeout(() => {
+    document.startViewTransition(() => app.notifications.replaceChildren());
+  }, ms);
 }
 
 const app = {
   form: query("form", HTMLFormElement),
+  toast: query(`#success-toast`, HTMLTemplateElement),
+  notifications: query(`[aria-label="notifications"]`, HTMLElement),
   "first-name": query(`[name="first-name"]`, HTMLInputElement),
   "last-name": query(`[name="last-name"]`, HTMLInputElement),
   message: query(`[name="message"]`, HTMLTextAreaElement),
   email: query(`[name="email"]`, HTMLInputElement),
   "query-type": query(`fieldset:has([name="query-type"])`, HTMLFieldSetElement),
   "agree-contact": query(`[name="agree-contact"]`, HTMLInputElement),
-  toast: query(`[aria-labelledby="toast-heading"]`, HTMLElement),
 };
 
 app.form.noValidate = true;
@@ -104,10 +112,6 @@ app.form.addEventListener("submit", (e) => {
 
   if (isValidForm) {
     app.form.reset();
-    document.startViewTransition(() => renderToast(true));
-    setTimeout(
-      () => document.startViewTransition(() => renderToast(false)),
-      3000,
-    );
+    renderToast();
   }
 });

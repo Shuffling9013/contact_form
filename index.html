@@ -27,12 +27,7 @@
             required
             aria-errormessage="first-name-error"
           />
-          <span
-            id="first-name-error"
-            role="alert"
-            aria-live="assertive"
-            aria-hidden="true"
-          />
+          <span id="first-name-error" role="alert" aria-live="assertive" />
         </div>
 
         <div>
@@ -44,12 +39,7 @@
             required
             aria-errormessage="last-name-error"
           />
-          <span
-            id="last-name-error"
-            role="alert"
-            aria-live="assertive"
-            aria-hidden="true"
-          />
+          <span id="last-name-error" role="alert" aria-live="assertive" />
         </div>
 
         <div>
@@ -61,12 +51,7 @@
             required
             aria-errormessage="email-error"
           />
-          <span
-            id="email-error"
-            role="alert"
-            aria-live="assertive"
-            aria-hidden="true"
-          />
+          <span id="email-error" role="alert" aria-live="assertive" />
         </div>
 
         <fieldset aria-errormessage="query-type-error">
@@ -79,12 +64,7 @@
             <input type="radio" name="query-type" value="support" />
             Support Request
           </label>
-          <span
-            id="query-type-error"
-            role="alert"
-            aria-live="assertive"
-            aria-hidden="true"
-          />
+          <span id="query-type-error" role="alert" aria-live="assertive" />
         </fieldset>
 
         <div>
@@ -95,12 +75,7 @@
             required
             aria-errormessage="message-error"
           ></textarea>
-          <span
-            id="message-error"
-            role="alert"
-            aria-live="assertive"
-            aria-hidden="true"
-          />
+          <span id="message-error" role="alert" aria-live="assertive" />
         </div>
 
         <div>
@@ -113,33 +88,27 @@
             />
             I consent to being contacted by the team *
           </label>
-          <span
-            id="agree-contact-error"
-            role="alert"
-            aria-live="assertive"
-            aria-hidden="true"
-          />
+          <span id="agree-contact-error" role="alert" aria-live="assertive" />
         </div>
 
         <button type="submit">Submit</button>
       </form>
 
-      <section
-        aria-labelledby="toast-heading"
-        aria-hidden="true"
-        aria-live="assertive"
-        aria-atomic="true"
-        hidden
-      >
-        <h2 id="toast-heading">
-          <img
-            src="./assets/images/icon-success-check.svg"
-            alt="success check"
-          />
-          Message Sent!
-        </h2>
-        <p>Thanks for completing the form. We'll be in touch soon!</p>
-      </section>
+      <section aria-label="notifications" aria-live="status"></section>
     </main>
+
+    <template id="success-toast">
+      <div>
+      	<header>
+      	  <img
+      	    src="./assets/images/icon-success-check.svg"
+      	    alt="success check"
+      	    aria-hidden="true"
+      	  />
+      	  <h2>Message Sent!</h2>
+      	</header>
+      	<p>Thanks for completing the form. We'll be in touch soon!</p>
+      </div>
+    </template>
   </body>
 </html>

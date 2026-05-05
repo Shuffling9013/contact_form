@@ -49,6 +49,7 @@
     padding: 1em;
     max-inline-size: 36em;
     container-type: inline-size;
+    anchor-name: --form;
     border-radius: 1em;
     background-color: var(--white);
 
@@ -63,25 +64,24 @@
     }
   }
 
-  [aria-labelledby="toast-heading"] {
-    padding: 1em;
-    border-radius: 0.5em;
+  [aria-label="notifications"] {
+    position-anchor: --form;
+    position-area: top center;
     position: absolute;
-    top: 1em;
-    left: 50%;
-    transform: translateX(-50%);
+    transform: translateY(1em);
+    border-radius: 0.5em;
     background-color: var(--grey-900);
     color: var(--white);
 
-    #toast-heading {
-      display: flex;
-      gap: 0.5em;
-      margin-block-end: 0.5em;
-      font-weight: 700;
-    }
+    div {
+      margin: 1em;
 
-    p {
-      font-size: 0.75em;
+      header {
+        display: flex;
+        gap: 0.5em;
+        font-weight: 700;
+        font-size: 1.25em;
+      }
     }
   }
 
